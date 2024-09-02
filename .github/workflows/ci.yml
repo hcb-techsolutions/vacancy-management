@@ -26,4 +26,4 @@ jobs:
           maven-version: 3.9.8
       
       - name: Build with Maven Candidate
-        run:  cd candidate && pwd #&& mvn clean pakage -DskipTests
+        run:  cd candidate && mvn clean pakage -DskipTests
