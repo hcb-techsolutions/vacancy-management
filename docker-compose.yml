@@ -1,0 +1,21 @@
+services:
+  postgres:
+    container_name: candidate-db
+    image: postgres:16.4-alpine3.20
+    environment:
+      POSTGRES_USER: candidate
+      POSTGRES_PASSWORD: candidate
+      POSTGRES_DB: candidate
+    networks:
+      - vacancy-management
+    ports:
+      - "5432:5432"
+    volumes:
+      - candidate-data:/var/lib/postgresql/data
+
+networks:
+  vacancy-management:
+    driver: bridge
+
+volumes:
+  candidate-data:
