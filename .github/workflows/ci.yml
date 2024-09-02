@@ -1,0 +1,35 @@
+name: ci-java-workflow-develop
+
+on:
+  pull_request:
+    branches: 
+      - develop
+
+env:
+  JAVA_VERSION: '17' 
+  MAVEN_VERSION: '3.9.8'
+
+jobs:
+  build-candidate:
+    name: Build Candidate Service
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v4
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          java-version: ${{ env.JAVA_VERSION }}
+          distribution: 'temurin'
+
+      - name: Set up Maven
+        uses: s4u/setup-maven-action@v1.14.0
+        with:
+          java-version: ${{ env.JAVA_VERSION }}
+          maven-version: ${{ env.MAVEN_VERSION }}
+      
+      - name: Build Candidate Service
+        working-directory: ./candidate
+        run: mvn clean package -DskipTests
