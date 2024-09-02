@@ -26,6 +26,4 @@ jobs:
           maven-version: 3.9.8
       
       - name: Build with Maven Candidate
-        run:  pwd |
-              cd candidate |
-              mvn clean compile 
+        run:  pwd #&& ls && mvn clean install 
