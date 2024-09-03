@@ -1,4 +1,4 @@
-package br.com.hcbtechsolutions.vacancymanagement.candidate.encryptors;
+package br.com.hcbtechsolutions.vacancymanagement.candidate.encryptor;
 
 public interface IPasswordEncrypty {
     String encryptyPassword(String password);

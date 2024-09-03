@@ -1,4 +1,4 @@
-package br.com.hcbtechsolutions.vacancymanagement.candidate.encryptors;
+package br.com.hcbtechsolutions.vacancymanagement.candidate.encryptor;
 
 import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.stereotype.Component;
