@@ -57,9 +57,9 @@ jobs:
       - name: Build and push Dokcker image
         uses: docker/build-push-action@v5
         env:
-          REGISTRY: hcbtechsolutions/candidate
+          IMAGE: hcbtechsolutions/candidate
           TAG: ${{ steps.generate_tag.outputs.sha }}
         with:
           context: ./candidate
           push: true
-          tags: ${{ env.REGISTRY }}/candidate:${{ env.TAG}} ,${{ env.REGISTRY }}/candidate:latest
+          tags: ${{ env.IMAGE }}:${{ env.TAG}} , ${{ env.IMAGE }}:latest
