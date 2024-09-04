@@ -55,10 +55,12 @@ jobs:
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
       - name: Build and push
+        id: docker_build
         uses: docker/build-push-action@v5
         env:
           REGISTRY: hcbtechsolutions/candidate
           TAG: ${{ steps.generate_tag.outputs.sha }}
         with:
+          context: ./candidate
           push: true
           tags: $REGISTRY/candidate:$TAG,$REGISTRY/candidate:latest
