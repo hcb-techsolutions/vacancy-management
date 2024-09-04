@@ -12,7 +12,7 @@ import br.com.hcbtechsolutions.vacancymanagement.candidate.service.ICandidateSer
 import jakarta.validation.Valid;
 
 @RestController
-@RequestMapping("/candidate")
+@RequestMapping("/api/candidate")
 public class CandidateController implements ICandidateController{
 
     @Autowired

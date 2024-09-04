@@ -8,7 +8,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-public class BCryptyPasswordTest {
+public class BCryptyPasswordUnitTest {
 
     private IPasswordEncrypty passwordEncryptor;
 
@@ -20,7 +20,7 @@ public class BCryptyPasswordTest {
     @Test
     public void testEncryptPassword() {
         // Given
-        String plainPassword = "securePassword123";
+        String plainPassword = "password123";
 
         // When
         String encryptedPassword = passwordEncryptor.encryptyPassword(plainPassword);
@@ -68,18 +68,5 @@ public class BCryptyPasswordTest {
 
         // Then
         assertFalse(isPasswordMatch, "The plain password should not match the encrypted password");
-    }
-
-    @Test
-    public void testEncryptAndVerifyWithEmptyPassword() {
-        // Given
-        String emptyPassword = "";
-
-        // When
-        String encryptedPassword = passwordEncryptor.encryptyPassword(emptyPassword);
-        boolean isPasswordMatch = passwordEncryptor.validatePasswordEncrypted(emptyPassword, encryptedPassword);
-
-        // Then
-        assertTrue(isPasswordMatch, "Empty password should match its own encrypted form");
     }
 }

@@ -15,6 +15,7 @@ import lombok.Builder;
 public record CandidateDTO(
     UUID id,
     
+    @NotBlank(message = "name cannot be blank")
     String name,
     
     @NotBlank
