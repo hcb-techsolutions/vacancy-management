@@ -22,13 +22,10 @@ COPY --from=build /build/target/candidate*.jar ./candidate.jar
 
 ARG UID=10001
 
-RUN adduser \
-    --disabled-password \
-    --gecos "" \
-    --home "/nonexistent" \
-    --shell "/sbin/nologin" \
-    --no-create-home \
+RUN useradd \
     --uid "${UID}" \
+    --home-dir "/nonexistent" \
+    --shell "/sbin/nologin" \
     appuser
 
 USER appuser
