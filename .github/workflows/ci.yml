@@ -2,16 +2,16 @@ name: ci-java-workflow-develop
 
 on:
   pull_request:
-    branches: 
+    branches:
       - develop
 
 env:
-  JAVA_VERSION: '17' 
-  MAVEN_VERSION: '3.9.8'
+  JAVA_VERSION: "17"
+  MAVEN_VERSION: "3.9.8"
 
 jobs:
-  build-candidate:
-    name: Build Candidate Service
+  continuous-integration:
+    name: Continuous Integration
     runs-on: ubuntu-latest
 
     steps:
@@ -22,14 +22,44 @@ jobs:
         uses: actions/setup-java@v4
         with:
           java-version: ${{ env.JAVA_VERSION }}
-          distribution: 'temurin'
+          distribution: "temurin"
 
       - name: Set up Maven
         uses: s4u/setup-maven-action@v1.14.0
         with:
           java-version: ${{ env.JAVA_VERSION }}
           maven-version: ${{ env.MAVEN_VERSION }}
-      
-      - name: Build Candidate Service
+
+      - name: Build Candidate
         working-directory: ./candidate
         run: mvn clean package -DskipTests
+
+      - name: Unit Test Candidate
+        working-directory: ./candidate
+        run: mvn test
+
+      - name: Integration Test Candidate
+        working-directory: ./candidate
+        run: mvn verify -P integration-test
+
+      - name: Generate tag
+        id: generate_tag
+        run: |
+          SHA=$(echo $GITHUB_SHA | head -c7)
+          echo "sha=$SHA" >> $GITHUB_OUTPUT
+
+      - name: Login into the container registry
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: Build and push Dokcker image
+        uses: docker/build-push-action@v5
+        env:
+          IMAGE: hcbtechsolutions/candidate
+          TAG: ${{ steps.generate_tag.outputs.sha }}
+        with:
+          context: ./candidate
+          push: true
+          tags: ${{ env.IMAGE }}:${{ env.TAG}} , ${{ env.IMAGE }}:latest
