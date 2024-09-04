@@ -54,8 +54,7 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
-      - name: Build and push
-        id: docker_build
+      - name: Build and push Dokcker image
         uses: docker/build-push-action@v5
         env:
           REGISTRY: hcbtechsolutions/candidate
@@ -63,4 +62,4 @@ jobs:
         with:
           context: ./candidate
           push: true
-          tags: $REGISTRY/candidate:$TAG,$REGISTRY/candidate:latest
+          tags: ${{ env.REGISTRY }}/candidate:${{ env.TAG}} ,${{ env.REGISTRY }}/candidate:latest
