@@ -40,7 +40,7 @@ jobs:
 
       - name: Integration Test Candidate
         working-directory: ./candidate
-        run: mvn vertify -P integration-test
+        run: mvn verify -P integration-test
 
       - name: Generate tag
         id: generate_tag
